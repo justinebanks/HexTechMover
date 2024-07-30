@@ -1,0 +1,101 @@
+
+* {
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color: white;
+}
+
+:root {
+    --test-label-size: 125px;
+    --arrow-size: 75px;
+}
+
+body {
+    padding: 0px;
+    margin: 0px;
+    background-color: black;
+}
+
+.test-label-container {
+    position: absolute;
+    left: calc(50% - var(--test-label-size) / 2);
+    top: calc(50% - var(--test-label-size) / 2);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    
+    padding: 0px;
+    width: var(--test-label-size);
+    height: var(--test-label-size);
+    
+    border: 2px solid white;
+    border-radius: 10px;
+    background-color: rgb(0, 124, 173);
+}
+
+#test-label {
+    text-align: center;
+    font-size: 40px;
+}
+
+#emergency-stop {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    font-size: 25px;
+    background-color: rgb(0, 113, 113);
+    padding: 15px;
+    border-radius: 10px;
+    border: 1px solid white;
+}
+
+#emergency-stop:hover {
+    background-color: rgb(0, 199, 213);
+}
+
+canvas {
+    border: 2px solid hsl(200, 100%, 50%);
+}
+
+.arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    position: absolute;
+    width: var(--arrow-size);
+    height: var(--arrow-size);
+    border: 2px solid white;
+    background-color: rgb(49, 193, 113);
+    font-size: 40px;
+    font-weight: bolder;
+}
+
+.arrow-up {
+    left: calc(50% - var(--arrow-size)/2);
+    top: calc(50% - var(--arrow-size)/2 - var(--test-label-size));
+}
+
+.arrow-down {
+    left: calc(50% - var(--arrow-size)/2);
+    top: calc(50% - var(--arrow-size)/2 + var(--test-label-size));
+}
+
+.arrow-left {
+    left: calc(50% - var(--arrow-size)/2 - var(--test-label-size));
+    top: calc(50% - var(--arrow-size)/2);
+}
+
+.arrow-right {
+    left: calc(50% - var(--arrow-size)/2 + var(--test-label-size));
+    top: calc(50% - var(--arrow-size)/2);
+}
+
+.arrow:focus {
+    background-color: rgb(74, 254, 155);
+}
+
+#speed-up {
+    
+}

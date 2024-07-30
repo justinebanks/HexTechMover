@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="https://images.crunchbase.com/image/upload/c_pad,f_auto,q_auto:eco,dpr_1/t51wvqyotyeviuqbnwwl">
+    <title>HexTech Charger User Interface</title>
+</head>
+<body>
+    <canvas></canvas>
+    <div class="test-label-container">
+        <p id="test-label"></p>
+    </div>
+
+    <button id="emergency-stop">!!!EMERGENCY STOP!!!</button>
+
+    <button class="arrow arrow-up">&#94;<button>
+    <button class="arrow arrow-left">&lt;<button>
+    <button class="arrow arrow-down">v<button>
+    <button class="arrow arrow-right">&gt;<button>
+
+    <button id="speed-up">+</button>
+    <button id="speed-down">-</button>
+
+    <button id="free-wheels">Free Wheels</button>
+
+    <script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
+    <script type="module" src="main.js"></script>
+</body>
+</html>
