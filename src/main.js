@@ -29,16 +29,12 @@ const LEFT_BACK = "stepper.02";
 const RIGHT_BACK = "stepper.03";
 
 const speedUI = new SpeedUI(context, 50, 300);
-const mqttc = new MqttConnector('justin2');
+const mqttc = new MqttConnector('hextech-justin2', 'justin2', 'hextech/hextech-justin2/commands');
 
 let speed = 2000; // Min: ~685, Max: ~2000
 const POWER = 6000; // Milliamps of Current
 const IDLE_LOCK = false;
 
-
-mqttc.subscribe((_, msg) => {
-    console.log("MESSAGE RECIEVED: ", msg);
-})
 
 
 document.getElementById("free-wheels").addEventListener("click", () => {

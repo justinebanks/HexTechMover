@@ -1,25 +1,15 @@
+
 // Class For Managing MQTT Connection
 export class MqttConnector {
-    constructor(user) {
-        this.client = mqtt.connect("ws://mqtt.hextronics.cloud:8083/mqtt", { username: `hextech-${user}`, password: user });
+    constructor(username, password, pubTopic) {
+        this.client = mqtt.connect("ws://mqtt.hextronics.cloud:8083/mqtt", { username, password });
         this.user = user
 
-        this.client.on('connect', () => {
-            console.log('CONNECTED');
-            this.subscribe(`hextech/hextech-${user}/status`, function (err) {
-                if (err) {
-                    console.log("SUBSCRIPTION ERROR: ", err);
-                }
-            })
-        })
-    }
-
-    subscribe(onMessage) {
-        this.client.on('message', (topic, msg) => onMessage(topic, msg));
+        this.client.on( 'connect', () => console.log('CONNECTED') );
     }
 
     publishMessage(msg) {
-        this.client.publish(`hextech/hextech-${this.user}/commands`, msg);
+        this.client.publish(pubTopic, msg);
     }
 }
 
@@ -57,8 +47,8 @@ export class SpeedUI {
 
         const paramsFromAngle = (num, deg) => 
             [
-                num, 
-                SpeedUI.getEndPoint(lineStart, deg, lineLength - this.ctx.measureText(num).width)[0] - 10, 
+                num,
+                SpeedUI.getEndPoint(lineStart, deg, lineLength - this.ctx.measureText(num).width)[0] - 10,
                 SpeedUI.getEndPoint(lineStart, deg, lineLength - this.ctx.measureText(num).width)[1]
             ];
 
