@@ -28,8 +28,6 @@ const RIGHT_FRONT = "stepper.01";
 const LEFT_BACK = "stepper.02";
 const RIGHT_BACK = "stepper.03";
 
-const BODY_DIMENSIONS = (32, 47);
-
 const speedUI = new SpeedUI(context, 50, 300);
 const mqttc = new MqttConnector('justin2');
 
@@ -45,9 +43,7 @@ mqttc.subscribe((_, msg) => {
 
 document.getElementById("free-wheels").addEventListener("click", () => {
     console.log("FREE WHEELS");
-    //mqttc.publishMessage(`${LEFT_FRONT}_stop;${RIGHT_FRONT}_stop;${LEFT_BACK}_stop;${RIGHT_BACK}_stop;`);
-    //mqttc.publishMessage(`${LEFT_FRONT}_move_2000`);
-    mqttc.publishMessage(`stepper.02_move_10000`);
+    //mqttc.publishMessage(`${LEFT_FRONT}_idlelock_0`)
 })
 
 
@@ -81,7 +77,7 @@ function move(direction) {
         case keys.LEFT:
             console.log("LEFT");
 
-            setSpeedEx(speed*0.125, speed*8);
+            //setSpeedEx(speed*0.125, speed*8);
             arrowLeft.focus();
             
             msg = `${LEFT_FRONT}_move_-${amount};${RIGHT_FRONT}_move_-${amount};${LEFT_BACK}_move_-${amount};${RIGHT_BACK}_move_-${amount}`;
