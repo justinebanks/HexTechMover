@@ -1,10 +1,4 @@
-import { MqttConnector, SpeedUI } from "./classes.js";
-
-const canvas = document.querySelector("canvas");
-const context = canvas.getContext('2d');
-
-canvas.width = window.screen.width;
-canvas.height = window.screen.height;
+import { MqttConnector } from "./classes.js";
 
 const testLabel = document.getElementById("test-label");
 const emergencyBtn = document.getElementById("emergency-stop");
@@ -28,20 +22,12 @@ const RIGHT_FRONT = "stepper.01";
 const LEFT_BACK = "stepper.02";
 const RIGHT_BACK = "stepper.03";
 
-const speedUI = new SpeedUI(context, 50, 300);
+//const speedUI = new SpeedUI(context, 50, 300);
 const mqttc = new MqttConnector('hextech-justin2', 'justin2', 'hextech/hextech-justin2/commands');
 
-let speed = 2000; // Min: ~685, Max: ~2000
-const POWER = 6000; // Milliamps of Current
+let speed = 1500; // Min: ~685, Max: ~2000
+const POWER = 2000; // Milliamps of Current
 const IDLE_LOCK = false;
-
-
-
-document.getElementById("free-wheels").addEventListener("click", () => {
-    console.log("FREE WHEELS");
-    //mqttc.publishMessage(`${LEFT_FRONT}_idlelock_0`)
-})
-
 
 
 function move(direction) {
@@ -51,9 +37,7 @@ function move(direction) {
     switch (direction) {
         case keys.FORWARD:
             console.log("FORWARD");
-
             arrowUp.focus();
-            setSpeed(speed);
 
             msg = `${LEFT_FRONT}_move_${amount};${RIGHT_FRONT}_move_-${amount};${LEFT_BACK}_move_${amount};${RIGHT_BACK}_move_-${amount}`;
             mqttc.publishMessage(msg);
@@ -61,8 +45,6 @@ function move(direction) {
         
         case keys.BACK:
             console.log("BACKWARD");
-
-            setSpeed(speed);
             arrowDown.focus();
 
             msg = `${LEFT_FRONT}_move_-${amount};${RIGHT_FRONT}_move_${amount};${LEFT_BACK}_move_-${amount};${RIGHT_BACK}_move_${amount}`;
@@ -71,14 +53,10 @@ function move(direction) {
         
 
         case keys.LEFT:
-            console.log("LEFT");
-
-            //setSpeedEx(speed*0.125, speed*8);
+            console.log("LEFT");;
             arrowLeft.focus();
             
             msg = `${LEFT_FRONT}_move_-${amount};${RIGHT_FRONT}_move_-${amount};${LEFT_BACK}_move_-${amount};${RIGHT_BACK}_move_-${amount}`;
-            //FF msg = `${LEFT_FRONT}_move_${amount};${RIGHT_FRONT}_move_-${amount};${LEFT_BACK}_move_${amount};${RIGHT_BACK}_move_-${amount}`;
-            //F  msg = `${RIGHT_FRONT}_move_-${amount};${RIGHT_BACK}_move_-${amount};`
             mqttc.publishMessage(msg);
             break;
         
@@ -97,17 +75,9 @@ function move(direction) {
 function setSpeed(val) {
     const command = `${LEFT_FRONT}_speed_${val};${RIGHT_FRONT}_speed_${val};${LEFT_BACK}_speed_${val};${RIGHT_BACK}_speed_${val};`;
     mqttc.publishMessage(command);
-    speedUI.setSpeed(val);
-    console.log("SPEED: ", command);
-}
-
-function setSpeedEx(leftVal, rightVal) {
-    const command = `${LEFT_FRONT}_speed_${leftVal};${RIGHT_FRONT}_speed_${rightVal};${LEFT_BACK}_speed_${leftVal};${RIGHT_BACK}_speed_${rightVal};`;
-    mqttc.publishMessage(command);
     //speedUI.setSpeed(val);
     console.log("SPEED: ", command);
 }
-
 
 function setCurrent(val) {
     const command = `${LEFT_FRONT}_rms_${POWER};${RIGHT_FRONT}_rms_${POWER};${LEFT_BACK}_rms_${POWER};${RIGHT_BACK}_rms_${POWER}`;
@@ -145,14 +115,6 @@ emergencyBtn.addEventListener("click", () => {
 })
 
 
-function animate() {
-    requestAnimationFrame(animate);
-    context.clearRect(0, 0, canvas.width, canvas.height);
-    speedUI.update();
-}
-
 setCurrent(POWER);
 setSpeed(speed);
 setIdleLock(IDLE_LOCK);
-
-animate();
