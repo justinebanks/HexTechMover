@@ -26,13 +26,13 @@ const RIGHT_BACK = "stepper.03";
 const mqttc = new MqttConnector('hextech-justin2', 'justin2', 'hextech/hextech-justin2/commands');
 
 let speed = 1500; // Min: ~685, Max: ~2000
-const POWER = 2000; // Milliamps of Current
+const POWER = 10_000; // Milliamps of Current
 const IDLE_LOCK = false;
 
 
 function move(direction) {
     let msg;
-    let amount = 10_000;
+    let amount = 100_000;
 
     switch (direction) {
         case keys.FORWARD:
